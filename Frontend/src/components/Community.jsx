@@ -19,7 +19,7 @@ export default function Community() {
 
       // Step 2: Configure Razorpay options
       const options = {
-        key: 'rzp_test_s5Q4uvAWK0a2Xg', // 🔁 Replace with your actual Razorpay Key ID
+        key: 'import.meta.env.VITE_RAZORPAY_KEY_ID', // 🔁 Replace with your actual Razorpay Key ID
         amount: order.amount,
         currency: order.currency,
         name: 'Donate to ' + campaign.name,
