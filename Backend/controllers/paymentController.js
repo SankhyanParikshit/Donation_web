@@ -1,18 +1,17 @@
-const stripe = require('../config/stripeconfig');
+const razorpay = require('../config/razorpay');
 
-const createPaymentIntent = async (req, res) => {
+exports.createOrder = async (req, res) => {
+  const { amount, currency } = req.body;
+
   try {
-    const { amount } = req.body;
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: amount * 100, // convert to cents
-      currency: 'usd',
-    });
-
-    res.status(200).json({ clientSecret: paymentIntent.client_secret });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+    const options = {
+      amount: amount * 100, // in paisa
+      currency: currency || 'INR',
+      receipt: 'receipt_' + Date.now(),
+    };
+    const order = await razorpay.orders.create(options);
+    res.status(200).json({ success: true, order });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
   }
 };
-
-module.exports = { createPaymentIntent };

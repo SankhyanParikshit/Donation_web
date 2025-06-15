@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import Marquee from './components/Marquee';
 import Community from './components/Community';
 import Social from './components/Social';
+import RazorpayPage from './components/Razorpay';
 import LocomotiveScroll from 'locomotive-scroll';
 
 // Admin Panel Imports
@@ -40,41 +41,45 @@ const App = () => {
     <CampaignProvider> {/* Wrap your app in the CampaignProvider */}
       <Router>
         <Routes>
-          {/* Main route with all sections */}
-          <Route
-            path="/"
-            element={
-              <div className="w-full h-screen" data-scroll-container>
-                <Navbar />
-                <LandingPage />
-                <div id="target-section" className="bg-gray-100 mt-[4rem]">
-                  <Marquee />
-                </div>
-                <About />
-                <Eyes />
-                <Featured />
-                <Footer />
-              </div>
-            }
-          />
+  {/* Main route with all sections */}
+  <Route
+    path="/"
+    element={
+      <div className="w-full h-screen" data-scroll-container>
+        <Navbar />
+        <LandingPage />
+        <div id="target-section" className="bg-gray-100 mt-[4rem]">
+          <Marquee />
+        </div>
+        <About />
+        <Eyes />
+        <Featured />
+        <Footer />
+      </div>
+    }
+  />
 
-          {/* Separate routes for Community and Social pages */}
-          <Route path="/community" element={<Community />} />
-          <Route path="/social" element={<Social />} />
+  {/* Payment Page Route */}
+  <Route path="/donate" element={<RazorpayPage />} />
 
-          {/* Sign-In Route */}
-          <Route path="/signin" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />
+  {/* Separate routes for Community and Social pages */}
+  <Route path="/community" element={<Community />} />
+  <Route path="/social" element={<Social />} />
 
-          {/* Admin Panel Route */}
-          <Route
-            path="/admin/*"
-            element={
-              <AuthCheck>
-                <AdminPanel />
-              </AuthCheck>
-            }
-          />
-        </Routes>
+  {/* Sign-In Route */}
+  <Route path="/signin" element={<SignIn setIsAuthenticated={setIsAuthenticated} />} />
+
+  {/* Admin Panel Route */}
+  <Route
+    path="/admin/*"
+    element={
+      <AuthCheck>
+        <AdminPanel />
+      </AuthCheck>
+    }
+  />
+</Routes>
+
       </Router>
     </CampaignProvider>
   );
