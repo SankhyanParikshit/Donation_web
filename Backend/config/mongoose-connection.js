@@ -1,8 +1,8 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-const config = require('config');
 const dbgr = require('debug')('development:mongoose');
 
-const dbURI = process.env.MONGODB_URL || config.get('MONGODB_URL');
+const dbURI = process.env.MONGODB_URL;
 
 mongoose.connect(`${dbURI}/fullii`)
     .then(() => {
